@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block head_title %} {{ item.title }} {% endblock %}
+
+{% block content %}
+
+  <main class="mt-5 pt-4">
+    <div class="container dark-grey-text mt-5">
+
+        <div class="mt-5 pt-4">
+    {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        {% endfor %}
+    {% endif %}
+    </div>
+
+      <!--Grid row-->
+      <div class="row wow fadeIn">
+
+        <!--Grid column-->
+        <div class="col-md-4 mb-4">
+
+          <img src="{{ item.image.url }}" class="img-fluid pt-5">
+
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-md-6 mb-4">
+
+          <!--Content-->
+          <div class="p-4">
+
+              <h3>{{ item.title }}</h3>
+              <h4 class="text-secondary">{{ item.author.name }}</h4>
+              <p class="text-muted">{{ item.publish_house }}</p>
+              <a href="{{ item.classification.get_absolute_url }}" class="d-block mb-2">{{ item.classification.name }}</a>
+              <a href="{{ item.language.get_absolute_url }}"><p class="font-weight-bold">{{ item.language.name }}</p></a>
+              <a href="{{ item.category.get_absolute_url }}"><p>{{ item.category.name }}</p></a>
+
+            <p class="lead">
+              {% if object.discount_price %}
+              <span class="mr-1">
+                <del>${{ object.price }}</del>
+              </span>
+              <span>${{ object.discount_price }}</span>
+              {% else %}
+              <span>${{ object.price }}</span>
+              {% endif %}
+            </p>
+
+            <p class="lead font-weight-bold">Overview</p>
+
+            <p>{{ object.overview }}</p>
+
+            <!--<form class="d-flex justify-content-left">-->
+              <!--&lt;!&ndash; Default input &ndash;&gt;-->
+              <!--<input type="number" value="1" aria-label="Search" class="form-control" style="width: 100px">-->
+              <!--<button class="btn btn-primary btn-md my-0 p" type="submit">Add to cart-->
+                <!--<i class="fas fa-shopping-cart ml-1"></i>-->
+              <!--</button>-->
+
+            <!--</form>-->
+
+            <a href="{{ object.get_add_to_cart_url }}" class="btn btn-primary btn-md my-0 p">Add to cart
+                <i class="fas fa-shopping-cart ml-1"></i>
+            </a>
+
+          </div>
+          <!--Content-->
+
+        </div>
+        <!--Grid column-->
+
+      </div>
+      <!--Grid row-->
+
+    </div>
+  </main>
+
+{% endblock content %}
